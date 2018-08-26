@@ -313,11 +313,11 @@
   <!-- 星星 -->
   <div class="star"></div>
   <!-- 收服中 -->
-  <div class="attacking" onclick="hidePrize()">
+  <div class="attacking">
     <p class="timer">
       <label for="#">剩余0</label><span class="sec">8</span><span>:</span><span class="msec"></span><label for="#">秒</label>
     </p>
-    <div class="content">
+    <div class="content" onclick="hidePrize()">
       <h1>暴鲤龙正在疯狂战斗</h1>
       <p>...OOOOPPPPPPP</p>
       <P>...XXX....</P>
@@ -330,8 +330,8 @@
   <div class="ruleBtn" onclick="showRule()">
     <span class="iconfont icon-gantanhao1"></span><span>规则</span>
   </div>
-  <div class="rule" onclick="hideRule()">
-    <div class="content">
+  <div class="rule">
+    <div class="content" onclick="hideRule()">
         <h1>收服神奇宝贝要领</h1>
         <p>点击它</p>
         <p>狠狠点击它</p>
@@ -344,7 +344,7 @@
     <label for="#">今日剩余次数</label><span class="countNum">6</span>
   </div>
   <!-- 背景音乐 -->
-  <audio autoplay src="https://m10.music.126.net/20180826143653/e22fc6797076a4d65ea9b54e68a72f32/ymusic/138f/ee7c/93e9/c8edd811afb39cb436a69f14a5140ebe.mp3"></audio>
+  <audio src="https://m10.music.126.net/20180826211558/4b6f9bd59f1d9a645250d066a738d74d/ymusic/138f/ee7c/93e9/c8edd811afb39cb436a69f14a5140ebe.mp3" autoplay></audio>
   <!-- 暴龙王攻击 -->
   <div id="attac">
     <img id="mons" src="http://imgsrc.baidu.com/forum/w=580/sign=4dfa4b520bb30f24359aec0bf895d192/0887c9177f3e6709ff4ea5cc3fc79f3df8dc55bc.jpg" alt="#">
@@ -610,12 +610,13 @@
     var secTime = document.querySelector('.sec')
     var msecTime = document.querySelector('.msec')
     var msec = 9
+    var sec = 8
     function startT () {
       msecTime.innerText = 99
       secTime.innerText = 8
       msecTime.innerText = 99
       var secT = setInterval(function(){
-        if (secTime.innerText == 0 || secTime.innerText == "NaN") {
+        if (secTime.innerText == 0 || sec === 0) {
           clearInterval(secT)
           clearInterval(msceT)
           secTime.innerText = "0"
@@ -623,7 +624,7 @@
           document.querySelector('.win').innerText = "恭喜收服神奇宝贝"
           document.querySelector('.win').style.color = "red"
         }
-        else {secTime.innerText -= 1}
+        else {secTime.innerText -= 1; sec -= 1}
       },1000)
       var msceT = setInterval(function(){
         if(msec === -1){
