@@ -615,7 +615,7 @@
       secTime.innerText = 8
       msecTime.innerText = 99
       var secT = setInterval(function(){
-        if (secTime.innerText == 0) {
+        if (secTime.innerText == 0 || secTime.innerText == "NaN") {
           clearInterval(secT)
           clearInterval(msceT)
           secTime.innerText = "0"
