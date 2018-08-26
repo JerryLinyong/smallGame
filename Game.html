@@ -313,7 +313,7 @@
   <!-- 星星 -->
   <div class="star"></div>
   <!-- 收服中 -->
-  <div class="attacking" onclick="hidePrice()">
+  <div class="attacking" onclick="hidePrize()">
     <p class="timer">
       <label for="#">剩余0</label><span class="sec">8</span><span>:</span><span class="msec"></span><label for="#">秒</label>
     </p>
@@ -322,7 +322,7 @@
       <p>...OOOOPPPPPPP</p>
       <P>...XXX....</P>
       <p>...OOOOPPPPPPP</p>
-      <h1>恭喜收服神奇宝贝</h1>
+      <h1 class="win"></h1>
       <span class="close iconfont icon-guanbi" onclick="hidePrize()"></span>
     </div>
   </div>
@@ -620,6 +620,8 @@
           clearInterval(msceT)
           secTime.innerText = "0"
           msecTime.innerText = '00'
+          document.querySelector('.win').innerText = "恭喜收服神奇宝贝"
+          document.querySelector('.win').style.color = "red"
         }
         else {secTime.innerText -= 1}
       },1000)
@@ -631,7 +633,7 @@
           msecTime.innerText = "0" + msec
           msec -= 1
         }
-        else{msecTime.innerText -= 2}
+        else{msecTime.innerText -= 1}
       },10)
     }
   // 就决定是你了暴鲤龙
