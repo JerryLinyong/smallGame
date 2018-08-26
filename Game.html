@@ -313,7 +313,7 @@
   <!-- 星星 -->
   <div class="star"></div>
   <!-- 收服中 -->
-  <div class="attacking">
+  <div class="attacking" onclick="hidePrice()">
     <p class="timer">
       <label for="#">剩余0</label><span class="sec">8</span><span>:</span><span class="msec"></span><label for="#">秒</label>
     </p>
@@ -328,9 +328,9 @@
   </div>
   <!-- 规则 -->
   <div class="ruleBtn" onclick="showRule()">
-    <span class="iconfont icon-gantanhao1"></span> 规则
+    <span class="iconfont icon-gantanhao1"></span><span>规则</span>
   </div>
-  <div class="rule">
+  <div class="rule" onclick="hideRule()">
     <div class="content">
         <h1>收服神奇宝贝要领</h1>
         <p>点击它</p>
@@ -619,6 +619,7 @@
           console.log('2')
           clearInterval(secT)
           clearInterval(msceT)
+          secTime.innerText = "0"
           msecTime.innerText = '00'
         }
         else {secTime.innerText -= 1}
