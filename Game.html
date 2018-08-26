@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_809194_xchpp3uze99.css">
+  <style>
+    /* 画布设计 */
+    html,body {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      overflow: hidden
+    }
+    #firstTry {
+      position: absolute;
+      z-index: -3;
+      top: 0;
+      left: 0;
+      background: black
+    }
+    /* 精灵球设计 */
+    @keyframes myfirst {
+      0% {
+        transform: rotate(0deg) scale(0.5);
+        left: 0;
+        top: 0;
+        box-shadow: 0px 0px 14px 4px #b8e4f0
+      }
+      10% {
+        transform: rotate(144deg) scale(1.5);
+        left: 20%;
+        top: 50px;
+        box-shadow: 0px 0px 14px 4px #cc4e4e
+      }
+      20% {
+        transform: rotate(288deg) scale(1.2);
+        left: 40%;
+        top: 100px;
+        box-shadow: 0px 0px 14px 4px #3f1b1b
+      }
+      30% {
+        transform: rotate(432deg) scale(1.2);
+        left: 250px;
+        top: 150px;
+        box-shadow: 0px 0px 14px 4px #154c94
+      }
+      40% {
+        transform: rotate(576deg) scale(0.7);
+        left: 400px;
+        top: 200px;
+        box-shadow: 0px 0px 14px 4px #2624b1
+      }
+      50% {
+        transform: rotate(720deg) scale(0.7);
+        left: 100%;
+        top: 250px;
+        box-shadow: 0px 0px 14px 4px #aaa
+      }
+      70% {
+        transform: rotate(1080deg) scale(1.4);
+        left: 70%;
+        top: 750px;
+        box-shadow: 0px 0px 14px 4px #aaa
+      }
+      100% {
+        transform: rotate(1440deg) scale(2);
+        left: 50%;
+        top: 1000px;
+        box-shadow: 0px 0px 14px 4px #aaa
+      }
+    }
+    .ball {
+      position: absolute;
+      z-index: 2;
+      top: -100px;
+      animation: myfirst 2s linear;
+      border: black 3px solid;
+      width: 80px;
+      height: 80px;
+      border-radius: 80px
+    }
+    .ballBorder {
+      width: 20px;
+      height: 20px;
+      border-bottom: white solid 30px;
+      border-top: red solid 30px;
+      border-right: white solid 30px;
+      border-left: red solid 30px;
+      border-radius: 50px
+    }
+    .midCircle {
+      margin: 0px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid black;
+      background: white;
+      border-radius: 20px;
+    }
+    /* 口袋怪兽 */
+    .pocketMon {
+      position: absolute;
+      z-index: -2;
+      left: 125px;
+      top: 125px
+    }
+    img {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      margin: 25px 25px
+    }
+    #attac {
+      position: absolute;
+      z-index: -1;
+      left: 300px;
+      top: 800px;
+      transition: 1s
+    }
+    #mons {
+      height: 400px;
+      width: 400px;
+      visibility: hidden;
+      margin: 0
+    }
+    /* 规则内容 */
+    .ruleBtn {
+      position: absolute;
+      width: 150px;
+      height: 50px;
+      top: 16px;
+      border-radius: 40px;
+      text-align: center;
+      background: rgba(100,100,100,.3)
+    }
+    .ruleBtn,.ruleBtn>span {
+      font-size: 40px
+    }
+    .rule {
+      position: absolute;
+      z-index: 1000;
+      visibility: hidden;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(200,200,200,.4)
+    }
+    .content {
+      position: absolute;
+      top: 1000px;
+      width: 70vw;
+      height: 80vh;
+      margin: 0 15vw;
+      background: skyblue;
+      border-radius: 20px
+    }
+    h1 {
+      text-align: center;
+      font-size: 60px
+    }
+    p {
+      text-align: center;
+      font-weight: bold;
+      font-size: 40px;
+      color: red
+    }
+    .content>p:nth-child(2) {
+      color: green
+    }
+    .content>p:nth-child(3) {
+      color: yellow
+    }
+    .close {
+      position: absolute;
+      bottom: 0;
+      margin: 0 calc(50% - 40px);
+      font-size: 80px
+    }
+    /* 可抽奖次数 */
+    .count {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 260px;
+      padding: 10px 20px;
+      font-size: 40px;
+      color: white;
+      border: 3px solid skyblue;
+      border-radius: 20px
+    }
+    .count>label {
+      width: 40px
+    }
+    /* logo */
+    .logo {
+      position: absolute;
+      bottom: 280px
+    }
+    #charater {
+      position: absolute;
+      bottom: 50px;
+      left: 600px
+    }
+    .logoImg {
+      width: 600px
+    }
+    /* 奖品 */
+    .prize {
+      position: absolute;
+      bottom: 0px;
+      padding: 20px 0 60px 40px;
+      height: 200px;
+      width: 100vw;
+      background: rgba(135,206,235,.5);
+    }
+    .prize>img {
+      width: 150px;
+      height: 150px;
+      margin: 80px 0
+    }
+    .prize>p {
+      position: absolute;
+      margin: 0;
+      left: 200px
+    }
+    .prize>div {
+      margin-top: 50px;
+      white-space: nowrap;
+      overflow: auto
+    }
+    /* 抽奖页面 */
+    .attacking {
+      position: absolute;
+      z-index: 1000;
+      visibility: hidden;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(200,200,200,.4)
+    }
+    /* 星星 */
+    @keyframes dropping {
+      0% {
+        transform: scale(0.2);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      20% {
+        transform: scale(0.4);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      40% {
+        transform: scale(0.6);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      60% {
+        transform: scale(0.8);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      80% {
+        transform: scale(1);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      94% {
+        transform: scale(2);
+        box-shadow: 0px 0px 14px 4px white;
+        left: 600px;
+        top: 80px
+      }
+      97% {
+        transform: scale(4);
+        box-shadow: 0px 0px 50px 40px white;
+        left: 20px;
+        top: 1100px
+      }
+      100% {
+        transform: scale(8);
+        box-shadow: 0px 0px 500px 300px white;
+        left: 20px;
+        top: 1100px
+      }
+    }
+    .star {
+      position: absolute;
+      z-index: -1;
+      width: 30px;
+      height: 30px;
+      border-radius: 30px;
+      background: white;
+      left: 600px;
+      top: 80px;
+      animation: dropping 20s linear infinite;
+    }
+    /* 定时器 */
+    .timer {
+      position: absolute;
+      font-size: 50px;
+      top: 80px;
+      left: 240px
+    }
+  </style>
+</head>
+<body>
+  <!-- 星星 -->
+  <div class="star"></div>
+  <!-- 收服中 -->
+  <div class="attacking">
+    <p class="timer">
+      <label for="#">剩余0</label><span class="sec">8</span><span>:</span><span class="msec"></span><label for="#">秒</label>
+    </p>
+    <div class="content">
+      <h1>暴鲤龙正在疯狂战斗</h1>
+      <p>...OOOOPPPPPPP</p>
+      <P>...XXX....</P>
+      <p>...OOOOPPPPPPP</p>
+      <h1>恭喜收服神奇宝贝</h1>
+      <span class="close iconfont icon-guanbi" onclick="hidePrize()"></span>
+    </div>
+  </div>
+  <!-- 规则 -->
+  <div class="ruleBtn" onclick="showRule()">
+    <span class="iconfont icon-gantanhao1"></span> 规则
+  </div>
+  <div class="rule">
+    <div class="content">
+        <h1>收服神奇宝贝要领</h1>
+        <p>点击它</p>
+        <p>狠狠点击它</p>
+        <p>拼命点击它</p>
+        <span class="close iconfont icon-guanbi" onclick="hideRule()"></span>
+      </div>
+  </div>
+  <!-- 次数 -->
+  <div class="count">
+    <label for="#">今日剩余次数</label><span class="countNum">6</span>
+  </div>
+  <!-- 背景音乐 -->
+  <audio autoplay src="https://m10.music.126.net/20180826143653/e22fc6797076a4d65ea9b54e68a72f32/ymusic/138f/ee7c/93e9/c8edd811afb39cb436a69f14a5140ebe.mp3"></audio>
+  <!-- 暴龙王攻击 -->
+  <div id="attac">
+    <img id="mons" src="http://imgsrc.baidu.com/forum/w=580/sign=4dfa4b520bb30f24359aec0bf895d192/0887c9177f3e6709ff4ea5cc3fc79f3df8dc55bc.jpg" alt="#">
+  </div>
+  <!-- 精灵球 -->
+  <div class="ball">
+    <div class="ballBorder">
+      <div class="midCircle"></div>
+    </div>
+  </div>
+  <!-- 神奇宝贝 -->
+  <div class="pocketMon">
+    <img id="img0" src="http://dianasalsa.de/assets/images/anime/86/hooh.png" alt="#">
+    <img id="img1" src="http://www.yourmomhatesthis.com/images/2016/12/Pokemon-Free-Download-PNG.png" alt="#">
+    <img id="img2" src="http://pngimg.com/uploads/pokemon/pokemon_PNG33.png" alt="#"><br>
+    <img id="img3" src="http://dianasalsa.de/assets/images/anime/86/lugia.png" alt="#">
+    <img id="img4" src="https://t5.rbxcdn.com/ef7e38c2b924d7d3b14c7d72b98a242d" alt="#">
+    <img id="img5" src="http://pluspng.com/img-png/pokemon-png-800.png" alt="#"><br>
+    <img id="img6" src="http://pngimg.com/uploads/pokemon/pokemon_PNG154.png" alt="#">
+    <img id="img7" src="https://static.pokemonpets.com/images/monsters-images-800-800/79-Slowpoke.png" alt="#">
+    <img id="img8" src="http://media-cerulean.cursecdn.com/attachments/7/35/635194434492047810.png" alt="#">
+  </div>
+  <!-- 画布 -->
+  <div class="draw">
+    <canvas height="5000px" width="2000" id="firstTry">您的浏览器不支持canvas</canvas>
+    <canvas height="5000px" width="2000" id="secTry" onmousemove="mouseShine(event)" onclick="mouseStar(event)">您的浏览器不支持canvas</canvas>
+    <canvas height="5000px" width="2000" id="third">您的浏览器不支持canvas</canvas>
+  </div> 
+  <!-- logo -->
+  <div class="logo">
+    <img class="logoImg" src="http://pluspng.com/img-png/pokemon-logo-png-pokemon-logo-png-2000.png" alt="#">
+    <img id="charater" src="http://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c326.png" alt="">
+  </div>
+  <div class="prize">
+    <p>您可能获得的奖品</p>
+    <div>
+      <img src="http://dianasalsa.de/assets/images/anime/86/hooh.png" alt="#">
+      <img src="http://www.yourmomhatesthis.com/images/2016/12/Pokemon-Free-Download-PNG.png" alt="#">
+      <img src="http://pngimg.com/uploads/pokemon/pokemon_PNG33.png" alt="#">
+      <img src="http://dianasalsa.de/assets/images/anime/86/lugia.png" alt="#">
+      <img src="https://t5.rbxcdn.com/ef7e38c2b924d7d3b14c7d72b98a242d" alt="#">
+      <img src="http://pluspng.com/img-png/pokemon-png-800.png" alt="#">
+      <img src="http://pngimg.com/uploads/pokemon/pokemon_PNG154.png" alt="#">
+      <img src="https://static.pokemonpets.com/images/monsters-images-800-800/79-Slowpoke.png" alt="#">
+      <img src="http://media-cerulean.cursecdn.com/attachments/7/35/635194434492047810.png" alt="#">
+    </div>
+  </div>
+  <script>
+    // 画布JS
+    var c = document.getElementById('firstTry')
+    var ctx = c.getContext('2d')
+    var c2 = document.getElementById('secTry')
+    var ctx2 = c2.getContext('2d')
+    var c3 = document.getElementById('third')
+    var ctx3 = c2.getContext('2d')
+    var height = window.innerHeight
+    var width = window.innerWidth
+    var clearPot
+    var img1 = document.getElementById('img1')
+    var img2 = document.getElementById('img2')
+    var img3 = document.getElementById('img3')
+    var img4 = document.getElementById('img4')
+    var attac = document.querySelector('#attac')
+    var countNum = 6
+    var countText = document.querySelector('.countNum')
+    // 收服怪兽
+    document.querySelector('.draw').addEventListener('click',function(e){
+      if (countNum === 0) return;
+      if (e.clientX >= 100 && e.clientX <= 250 && e.clientY >= 150 && e.clientY <= 300) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "0px"
+        attac.style.left = "100px"
+        setTimeout(function(){
+        img0.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 300 && e.clientX <= 450 && e.clientY >= 150 && e.clientY <= 300) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "0px"
+        attac.style.left = "300px"
+        setTimeout(function(){
+        img1.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 500 && e.clientX <= 650 && e.clientY >= 150 && e.clientY <= 300) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "0px"
+        attac.style.left = "500px"
+        setTimeout(function(){
+          img2.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 100 && e.clientX <= 250 && e.clientY >= 350 && e.clientY <= 500) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "200px"
+        attac.style.left = "100px"
+        setTimeout(function(){
+          img3.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 300 && e.clientX <= 450 && e.clientY >= 350 && e.clientY <= 500) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "200px"
+        attac.style.left = "300px"
+        setTimeout(function(){
+          img4.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 500 && e.clientX <= 650 && e.clientY >= 350 && e.clientY <= 500) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "200px"
+        attac.style.left = "500px"
+        setTimeout(function(){
+          img5.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 100 && e.clientX <= 250 && e.clientY >= 550 && e.clientY <= 700) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "400px"
+        attac.style.left = "100px"
+        setTimeout(function(){
+          img6.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 300 && e.clientX <= 450 && e.clientY >= 550 && e.clientY <= 700) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "400px"
+        attac.style.left = "300px"
+        setTimeout(function(){
+          img7.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 500 && e.clientX <= 650 && e.clientY >= 550 && e.clientY <= 700) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "400px"
+        attac.style.left = "500px"
+        setTimeout(function(){
+          img8.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      } else if (e.clientX >= 500 && e.clientX <= 650 && e.clientY >= 550 && e.clientY <= 700) {
+        startT()
+        showPrize()
+        countNum -= 1
+        countText.innerText = countNum
+        attac.style.top = "400px"
+        attac.style.left = "500px"
+        setTimeout(function(){
+          img4.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/4/4c/Pokeball.png")
+        },2000)
+      }
+    })
+    // 画布1：背景
+    function creatStar () {
+      ctx.clearRect(0,0,width,height)
+      ctx.font="50px Georgia"
+      var gradient=ctx.createLinearGradient(0,0,500,0);
+      gradient.addColorStop("0","magenta");
+      gradient.addColorStop("0.5","blue");
+      gradient.addColorStop("1.0","purple")
+      ctx.fillStyle = gradient
+      ctx.fillText("一起来收服神奇宝贝吧",200,70)
+      for (var i=1; i<200; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random()*width,Math.random()*height,2,0,Math.PI*2,true);
+        ctx.fillStyle = '#fff'
+        ctx.fill();
+        ctx.closePath()
+      }
+      ctx.beginPath();
+      ctx.arc(30,30,100,0,Math.PI*2,true);
+      ctx.fillStyle = '#fff'
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = '#eee'
+      ctx.fill()
+    }
+    creatStar()
+    // 画布2：精灵球和流光
+    function mouseStar (e) {
+      ctx2.clearRect(0,0,width,height)
+      ctx2.beginPath();
+      ctx2.arc(e.offsetX,e.offsetY,30,0,Math.PI*1,true);
+      ctx2.fillStyle = '#f00'
+      ctx2.shadowBlur= 10;
+      ctx2.shadowColor = '#f00'
+      ctx2.fill();
+      ctx2.beginPath();
+      ctx2.arc(e.offsetX,e.offsetY,30,Math.PI*1,Math.PI*2,true);
+      ctx2.fillStyle = '#fff'
+      ctx2.shadowBlur= 10;
+      ctx2.shadowColor = '#fff'
+      ctx2.fill();
+      ctx2.beginPath();
+      ctx2.arc(e.offsetX,e.offsetY,10,0,Math.PI*2,true);
+      ctx2.fillStyle = '#000'
+      ctx2.fill();
+      ctx2.beginPath();
+      ctx2.arc(e.offsetX,e.offsetY,8,0,Math.PI*2,true);
+      ctx2.fillStyle = '#fff'
+      ctx2.fill();
+      ctx2.closePath()
+      clearTimeout(clearPot)
+      clearPot = setTimeout(function(){
+        ctx2.clearRect(0,0,width,height)},800)
+    }
+    function mouseShine (e) {
+      for (var i=0; i<10; i++) {
+        ctx2.beginPath();
+        ctx2.arc(e.offsetX-20+Math.random()*40,e.offsetY-20+Math.random()*40,2,0,Math.PI*2,true);
+        ctx2.fillStyle = '#ff0'
+        ctx2.fill();
+        ctx2.closePath()
+        clearTimeout(clearPot)     
+        clearPot = setTimeout(function(){
+        ctx2.clearRect(0,0,width,height)},500)   
+      }
+    }
+    // 规则显示与隐藏
+    var rule = document.querySelector('.rule')
+    function showRule () {
+      document.querySelector('.rule>.content').style.transition = "2s"
+      rule.style.visibility = "visible"
+      document.querySelector('.rule>.content').style.top = "200px"
+    }
+    function hideRule () {
+      document.querySelector('.rule>.content').style.transition = "0s"
+      rule.style.visibility = "hidden"
+      document.querySelector('.rule>.content').style.top = "1000px"
+    }
+    // 关闭获奖页面
+    var monPrize = document.querySelector(".attacking")
+    function hidePrize () {
+      document.querySelector('.attacking>.content').style.transition = "0s"
+      monPrize.style.visibility = "hidden"
+      document.querySelector('.attacking>.content').style.top = "1000px"
+    }
+    function showPrize () {
+      setTimeout(function(){
+        document.querySelector('.attacking>.content').style.transition = "2s"
+        monPrize.style.visibility = "visible"
+        document.querySelector('.attacking>.content').style.top = "200px"
+      },200) 
+    }
+    // 计时器
+    var secTime = document.querySelector('.sec')
+    var msecTime = document.querySelector('.msec')
+    var msec = 9
+    function startT () {
+      msecTime.innerText = 99
+      secTime.innerText = 8
+      msecTime.innerText = 99
+      var secT = setInterval(function(){
+        if (secTime.innerText == 0) {
+          console.log('2')
+          clearInterval(secT)
+          clearInterval(msceT)
+          msecTime.innerText = '00'
+        }
+        else {secTime.innerText -= 1}
+      },1000)
+      var msceT = setInterval(function(){
+        if(msec === -1){
+          msec = 9
+          msecTime.innerText = 99
+        } else if(msecTime.innerText < 10) {
+          msecTime.innerText = "0" + msec
+          msec -= 1
+        }
+        else{msecTime.innerText -= 2}
+      },10)
+    }
+  // 就决定是你了暴鲤龙
+  setTimeout(function(){
+    document.querySelector("#mons").style.visibility = 'visible'
+  },2000)
+  </script>
+</body>
+</html>
