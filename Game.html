@@ -633,7 +633,7 @@
           document.querySelector('.win').innerText = "恭喜收服神奇宝贝"
           document.querySelector('.win').style.color = "red"
         }
-        else {secTime.innerText -= 1; sec -= 1}
+        else {secTime.innerText = sec; sec -= 1}
       },1000)
       var msceT = setInterval(function(){
         if(msec === -1){
